@@ -31,10 +31,18 @@ class NexiPayment {
 
   ///Makes the web view payment and awaits the response
   Future<String> xPayFrontOfficePaga(
-      String alias, String codTrans, String currency, int amount) async {
+      String alias, String codTrans, String currency, int amount, String num_contratto,
+      String gruppo, bool aggiungiCarta) async {
     await _initXPay(secretKey, environment, domain);
     ApiFrontOfficeQPRequest request =
-        ApiFrontOfficeQPRequest(alias, codTrans, currency, amount);
+        ApiFrontOfficeQPRequest(alias, codTrans, currency, amount, num_contratto,
+        gruppo, aggiungiCarta);
+
+    //ATTENZIONE basterebbe aggiungere questa riga se avessero già sviluppato
+    // la gestione degli extrakeys, per ora non serve
+    //request.extraKeys = <String, String>{"num_contratto":num_contratto};
+    //sicuramente l'aggiunta del parametro num_contratto diretto è più agevole
+    //per chefexpress
     var res =
         await _channel.invokeMethod("xPayFrontOfficePaga", request.toMap());
     return res;

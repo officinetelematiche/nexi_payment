@@ -1,4 +1,4 @@
-package com.paologi.nexi_payment;
+package android.src.main.java.com.paologi.nexi_payment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -150,6 +150,16 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
               call.argument("codTrans").toString(),
               call.argument("currency").toString(),
               call.argument("amount") != null ? ((Integer)call.argument("amount")).longValue() : 0);
+      if (call.argument("num_contratto")!=null) {
+
+        boolean aggiungiCarta = (boolean) call.argument("aggiungiCarta");
+        apiFrontOfficeQPRequest.addExtraKey("num_contratto", call.argument("num_contratto").toString());
+        apiFrontOfficeQPRequest.addExtraKey("tipo_servizio","paga_oc3d");
+        apiFrontOfficeQPRequest.addExtraKey("tipo_richiesta", aggiungiCarta?"PP":"PR"); //PP
+        apiFrontOfficeQPRequest.addExtraKey("gruppo",call.argument("gruppo").toString());
+
+      }
+
     } catch (UnsupportedEncodingException | MacException e) {
       e.printStackTrace();
     }
