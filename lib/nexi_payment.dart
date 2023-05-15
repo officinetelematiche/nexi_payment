@@ -38,11 +38,6 @@ class NexiPayment {
         ApiFrontOfficeQPRequest(alias, codTrans, currency, amount, num_contratto,
         gruppo, aggiungiCarta);
 
-    //ATTENZIONE basterebbe aggiungere questa riga se avessero già sviluppato
-    // la gestione degli extrakeys, per ora non serve
-    //request.extraKeys = <String, String>{"num_contratto":num_contratto};
-    //sicuramente l'aggiunta del parametro num_contratto diretto è più agevole
-    //per chefexpress
     var res =
         await _channel.invokeMethod("xPayFrontOfficePaga", request.toMap());
     return res;

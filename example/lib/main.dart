@@ -69,7 +69,7 @@ class TestPageState extends State<TestPage> {
 
   void _paga(String codTrans) async {
     var res = await _nexiPayment.xPayFrontOfficePaga(
-        "_your_alias", codTrans, CurrencyUtilsQP.EUR, 2500);
+        "_your_alias", codTrans, CurrencyUtilsQP.EUR, 2500, "", "" ,true);
     openEndPaymentDialog(res);
   }
 
