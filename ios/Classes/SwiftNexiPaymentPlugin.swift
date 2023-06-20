@@ -56,48 +56,48 @@ public class SwiftNexiPaymentPlugin: NSObject, FlutterPlugin {
   }
 
     func xPayFrontOfficePaga(_ call: FlutterMethodCall,  result: @escaping FlutterResult){
-        let rootViewController:UIViewController! = UIApplication.shared.keyWindow?.rootViewController
-        guard let args = call.arguments else {
-            return
-        }
-        if let myArgs = args as? [String: Any],
-            let alias = myArgs["alias"] as? String,
-            let codTrans = myArgs["codTrans"] as? String,
-            let _ = myArgs["currency"] as? String,
-            let amount = myArgs["amount"] as? Int {
+           let rootViewController:UIViewController! = UIApplication.shared.keyWindow?.rootViewController
+           guard let args = call.arguments else {
+               return
+           }
+           if let myArgs = args as? [String: Any],
+               let alias = myArgs["alias"] as? String,
+               let codTrans = myArgs["codTrans"] as? String,
+               let _ = myArgs["currency"] as? String,
+               let amount = myArgs["amount"] as? Int {
 
 
-          var apiFrontOfficeQPRequest = ApiFrontOfficeQPRequest(alias: alias, codTrans: codTrans, currency: CurrencyUtilsQP.EUR, amount: amount)
-            if let num_contratto = myArgs["num_contratto"] as? String {
-             apiFrontOfficeQPRequest.ExtraParameters["num_contratto"] = num_contratto
+             var apiFrontOfficeQPRequest = ApiFrontOfficeQPRequest(alias: alias, codTrans: codTrans, currency: CurrencyUtilsQP.EUR, amount: amount)
+               if let num_contratto = myArgs["num_contratto"] as? String {
+                apiFrontOfficeQPRequest.ExtraParameters["num_contratto"] = num_contratto
+   if let gruppo = myArgs["gruppo"] as? String {
+                apiFrontOfficeQPRequest.ExtraParameters["gruppo"] = gruppo
+                }
+                   apiFrontOfficeQPRequest.ExtraParameters["tipo_servizio"] = "paga_oc3d"
+
+    if let aggiungiCarta = myArgs["aggiungiCarta"] as? Bool {
+    if aggiungiCarta {
+        apiFrontOfficeQPRequest.ExtraParameters["tipo_richiesta"] = "PP"
 
 
-             }
-            if let gruppo = myArgs["gruppo"] as? String {
-             apiFrontOfficeQPRequest.ExtraParameters["gruppo"] = gruppo
-             }
-                apiFrontOfficeQPRequest.ExtraParameters["tipo_servizio"] = "paga_oc3d"
+    } else {
+        apiFrontOfficeQPRequest.ExtraParameters["tipo_richiesta"] = "PR"
 
- if let aggiungiCarta = myArgs["aggiungiCarta"] as? Bool {
- if aggiungiCarta {
-     apiFrontOfficeQPRequest.ExtraParameters["tipo_richiesta"] = "PP"
-                
 
- } else {
-     apiFrontOfficeQPRequest.ExtraParameters["tipo_richiesta"] = "PR"
-     
-
- }
- }
-            xPay?._FrontOffice.paga(apiFrontOfficeQPRequest, navigation: true, parentController: rootViewController, completionHandler: { response in
-                self.handleFrontOffice(response, result: result)
-            })
-
-        } else {
-            result(FlutterError(code: "-1", message: "iOS could not extract " +
-                "flutter arguments in method: (initXPay)", details: nil))
-        }
     }
+    }
+
+                }
+
+               xPay?._FrontOffice.paga(apiFrontOfficeQPRequest, navigation: true, parentController: rootViewController, completionHandler: { response in
+                   self.handleFrontOffice(response, result: result)
+               })
+
+           } else {
+               result(FlutterError(code: "-1", message: "iOS could not extract " +
+                   "flutter arguments in method: (initXPay)", details: nil))
+           }
+       }
 
 
     private func handleFrontOffice(_ response: ApiFrontOfficeQPResponse, result: @escaping FlutterResult) {
