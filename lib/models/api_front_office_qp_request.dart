@@ -7,9 +7,17 @@ class ApiFrontOfficeQPRequest extends ApiFrontOfficeBaseRequest {
   late String? num_contratto;
   late String gruppo;
   late bool aggiungiCarta;
+  late String? endpointResponse;
 
-  ApiFrontOfficeQPRequest(String alias, this.codTrans, this.currency,
-      this.amount, this.num_contratto, this.gruppo, this.aggiungiCarta)
+  ApiFrontOfficeQPRequest(
+      String alias,
+      this.codTrans,
+      this.currency,
+      this.amount,
+      this.num_contratto,
+      this.gruppo,
+      this.aggiungiCarta,
+      this.endpointResponse)
       : super(alias);
 
   ApiFrontOfficeQPRequest.map(obj) : super.map(obj) {
@@ -19,6 +27,7 @@ class ApiFrontOfficeQPRequest extends ApiFrontOfficeBaseRequest {
     num_contratto = obj["num_contratto"];
     gruppo = obj["gruppo"];
     aggiungiCarta = obj["aggiungiCarta"];
+    endpointResponse = obj["endpointResponse"];
   }
 
   Map<String, dynamic> toMap() {
@@ -29,6 +38,7 @@ class ApiFrontOfficeQPRequest extends ApiFrontOfficeBaseRequest {
     map["num_contratto"] = num_contratto;
     map["gruppo"] = gruppo;
     map["aggiungiCarta"] = aggiungiCarta;
+    map["endpointResponse"] = endpointResponse;
 
     return map;
   }

@@ -88,7 +88,9 @@ public class SwiftNexiPaymentPlugin: NSObject, FlutterPlugin {
     }
 
                 }
-
+ if let endpointResponse = myArgs["endpointResponse"] as? String {
+                apiFrontOfficeQPRequest.ExtraParameters["urlpost"] = endpointResponse
+                }
                xPay?._FrontOffice.paga(apiFrontOfficeQPRequest, navigation: true, parentController: rootViewController, completionHandler: { response in
                    self.handleFrontOffice(response, result: result)
                })

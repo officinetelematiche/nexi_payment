@@ -37,10 +37,18 @@ class NexiPayment {
       int amount,
       String? num_contratto,
       String gruppo,
-      bool aggiungiCarta) async {
+      bool aggiungiCarta,
+      String? endpointResponse) async {
     await _initXPay(secretKey, environment, domain);
-    ApiFrontOfficeQPRequest request = ApiFrontOfficeQPRequest(alias, codTrans,
-        currency, amount, num_contratto, gruppo, aggiungiCarta);
+    ApiFrontOfficeQPRequest request = ApiFrontOfficeQPRequest(
+        alias,
+        codTrans,
+        currency,
+        amount,
+        num_contratto,
+        gruppo,
+        aggiungiCarta,
+        endpointResponse);
 
     var res =
         await _channel.invokeMethod("xPayFrontOfficePaga", request.toMap());

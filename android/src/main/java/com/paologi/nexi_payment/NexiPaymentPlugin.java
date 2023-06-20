@@ -163,6 +163,9 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
         apiFrontOfficeQPRequest.addExtraKey("gruppo",call.argument("gruppo").toString());
 
       }
+      if (call.argument("endpointResponse")!=null) {
+        apiFrontOfficeQPRequest.addExtraKey("urlpost", call.argument("endpointResponse").toString());
+      }
 
     } catch (UnsupportedEncodingException | MacException e) {
       e.printStackTrace();
